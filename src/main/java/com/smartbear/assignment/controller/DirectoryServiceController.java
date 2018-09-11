@@ -30,17 +30,17 @@ public class DirectoryServiceController {
     @Secured("USER")
     public ResponseEntity<Entry> createEntry(@Valid @RequestBody Entry entry) throws Exception {
         Entry newentry = directoryServiceRepository.save(entry);
-        return new ResponseEntity<Entry>(entry, HttpStatus.OK);
+        return new ResponseEntity<Entry>(newentry, HttpStatus.OK);
     }
 
     @PutMapping("update/{id}")
-    public Entry updateEntry(@PathVariable Long entryid, @Valid @RequestBody Entry entry) throws Exception{
+    public Entry updateEntry(@PathVariable Long id, @Valid @RequestBody Entry entry) throws Exception{
 
-        return directoryServiceRepository.findById(entryid).map(var -> {
+        return directoryServiceRepository.findById(id).map(var -> {
             var.setName(entry.getName());
             var.setPhone(entry.getPhone());
             var.setEmail(entry.getEmail());
             return directoryServiceRepository.save(var);
-        }).orElseThrow(() -> new ResourceNotFoundException("No Such Entry Exists with id " + entryid));
+        }).orElseThrow(() -> new ResourceNotFoundException("No Such Entry Exists with id " + id));
     }
 }

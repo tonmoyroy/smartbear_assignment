@@ -1,5 +1,7 @@
 package com.smartbear.assignment.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +17,7 @@ public class Entry extends DirectoryModel {
             sequenceName = "entry_sequence",
             initialValue = 1000
     )
+    @JsonIgnore
     private Long id;
 
     @NotBlank(message = "Enter user name")
