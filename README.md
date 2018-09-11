@@ -19,7 +19,7 @@ password-smartbear
 ```
 
 
-##Features-
+## Features-
 1. REST service implementing CRUD operations.
 2. Used Basic Authentication to allow only authorized users.
 
