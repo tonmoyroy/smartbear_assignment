@@ -34,6 +34,7 @@ password-smartbear
 [http://18.207.223.140:8080/assignment/swagger-ui.html](http://18.207.223.140:8080/assignment/swagger-ui.html)
 
 4. Used JPA and PostGreSQL for persistant storage.
+5. Basic Exception Handeling
 
 
 Enjoyed a lot working with the assignment. Could not manage enough time to do unit testing. If required, can try to do that as well.
