@@ -4,4 +4,5 @@ import com.smartbear.assignment.model.Entry;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DirectoryServiceRepository extends JpaRepository<Entry, Long> {
+    Entry findByEmail(String email);
 }
