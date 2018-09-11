@@ -2,11 +2,14 @@
 RESTAPI Assignment from SmartBear
 
 This assignment implements a simple Directory Service to record name, phone number, email etc.
+
 For review and testing the application is deployed in a AWS instance with dockerized tomcat server and postgresql.
+
 Following is the base url of the application:
 [http://18.207.223.140:8080/assignment](http://18.207.223.140:8080/assignment)
 
 There is also an additional UI to monitor the docker containers running in AWS. Following is the link-
+
 [http://18.207.223.140:10001](http://18.207.223.140:10001)
 ```
 username-smartbear
