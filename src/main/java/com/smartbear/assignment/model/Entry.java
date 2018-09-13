@@ -21,17 +21,14 @@ public class Entry extends DirectoryModel {
     private Long id;
 
     @Column(name="name", nullable=false)
-    //@JsonProperty(value ="name",required = true)
     private String name;
 
     @Size(min = 9, max = 13,  message = "Phone no. must be @JsonProperty(value = \"name\"){min} to {max} characters in length.")
     @Column(name="phone", nullable= true)
-    //@JsonProperty(value ="phone")
     private String phone;
 
     @Email
     @Column(name = "email", nullable=false, unique = true)
-    //@JsonProperty(value = "email", required = true)
     private String email;
 
     public Long getId() {
