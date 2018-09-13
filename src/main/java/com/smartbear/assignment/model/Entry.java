@@ -1,11 +1,9 @@
 package com.smartbear.assignment.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -22,19 +20,18 @@ public class Entry extends DirectoryModel {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @NotBlank(message = "Enter user name")
-    @JsonProperty(value = "name")
+    @Column(name="name", nullable=false)
+    //@JsonProperty(value ="name",required = true)
     private String name;
 
-    @NotBlank
-    @Size(min = 9, max = 13,  message = "Phone no. must be {min} to {max} characters in length.")
-    @JsonProperty(value = "phone")
+    @Size(min = 9, max = 13,  message = "Phone no. must be @JsonProperty(value = \"name\"){min} to {max} characters in length.")
+    @Column(name="phone", nullable= true)
+    //@JsonProperty(value ="phone")
     private String phone;
 
-    @NotBlank
-    @Email(message = "Enter a valid email")
-    @Column(name = "email", unique = true)
-    @JsonProperty(value = "email")
+    @Email
+    @Column(name = "email", nullable=false, unique = true)
+    //@JsonProperty(value = "email", required = true)
     private String email;
 
     public Long getId() {

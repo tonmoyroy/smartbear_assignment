@@ -1,7 +1,6 @@
 package com.smartbear.assignment.controller;
 
 
-import com.smartbear.assignment.exception.ResourceNotFoundException;
 import com.smartbear.assignment.model.Entry;
 import com.smartbear.assignment.repository.DirectoryServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class DirectoryServiceController {
     private DirectoryServiceRepository directoryServiceRepository;
 
     @GetMapping("ping")
-    public String ping() throws Exception{
+    public String ping() throws Exception {
 
         return "Application is working!";
     }
@@ -36,29 +35,41 @@ public class DirectoryServiceController {
 
 
     @GetMapping("read")
-    public List<Entry> readEntry() throws Exception{
+    public List<Entry> readEntry() throws Exception {
         return directoryServiceRepository.findAll();
     }
 
 
-    @PutMapping("update/{id}")
-    public Entry updateEntry(@PathVariable Long id, @Valid @RequestBody Entry entry) throws Exception{
+    @PutMapping("update/{email}")
+    public ResponseEntity<?> updateEntry(@PathVariable String email, @Valid @RequestBody Entry entry) throws Exception {
 
-        return directoryServiceRepository.findById(id).map(var -> {
-            var.setName(entry.getName());
-            var.setPhone(entry.getPhone());
-            var.setEmail(entry.getEmail());
-            return directoryServiceRepository.save(var);
-        }).orElseThrow(() -> new ResourceNotFoundException("No Such Entry Exists with id " + id));
+        Entry oldEntry = directoryServiceRepository.findByEmail(email);
+        if (oldEntry != null) {
+            if (entry.getName() == null) {
+                entry.setName(oldEntry.getName());
+            }
+
+            if (entry.getPhone() == null) {
+                entry.setPhone(oldEntry.getPhone());
+            }
+
+            int status = directoryServiceRepository.updateEntryByEmail(entry.getName(), entry.getPhone(), email);
+            if (status == 1) {
+                return ResponseEntity.status(HttpStatus.OK).body(email + " Updated Successfully!");
+            } else
+                throw new RuntimeException("Failed to update for " + email);
+        }else{
+            throw new RuntimeException("No Such Entry Exists with id " + email);
+        }
     }
 
     @DeleteMapping("delete/{email}")
-    public ResponseEntity<?> deleteEntry(@PathVariable String email) throws Exception{
+    public ResponseEntity<?> deleteEntry(@PathVariable String email) throws Exception {
         Entry item = directoryServiceRepository.findByEmail(email);
-        if(!item.equals(null)){
+        if (!item.equals(null)) {
             directoryServiceRepository.delete(item);
-            return ResponseEntity.status(HttpStatus.OK).body(email+" Deleted Successfully!");
-        }else
+            return ResponseEntity.status(HttpStatus.OK).body(email + " Deleted Successfully!");
+        } else
             throw new RuntimeException("No Such Entry Exists with id " + email);
     }
 }
