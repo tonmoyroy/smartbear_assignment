@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("**/api/ping").permitAll()
                 .antMatchers("**/api").authenticated()
+                .antMatchers("**/swagger-ui.html").authenticated()
                 .and()
                 .requestCache()
                 .requestCache(new NullRequestCache())

@@ -28,9 +28,9 @@ public class DirectoryServiceController {
 
     @PostMapping("create")
     @Secured("USER")
-    public ResponseEntity<Entry> createEntry(@Valid @RequestBody Entry entry) throws Exception {
+    public ResponseEntity<?> createEntry(@Valid @RequestBody Entry entry) throws Exception {
         Entry newentry = directoryServiceRepository.save(entry);
-        return new ResponseEntity<Entry>(newentry, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newentry.getEmail() + " Created Successfully!");
     }
 
 
