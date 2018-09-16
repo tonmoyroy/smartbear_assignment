@@ -30,7 +30,7 @@ public class DirectoryServiceController {
 
 
     @ApiOperation(value = "Returns 201 if User Created Successfully")
-    @PostMapping(value = "create", produces = "application/json")
+    @PostMapping(value = "create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response> createEntry(@Valid @RequestBody Entry entry) throws Exception {
         Entry newentry = directoryServiceRepository.save(entry);
         Response eR = new Response();
@@ -40,14 +40,14 @@ public class DirectoryServiceController {
     }
 
     @ApiOperation(value = "Returns User Info List")
-    @GetMapping(value = "read", produces = "application/json")
+    @GetMapping(value = "read", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Entry> readEntry() throws Exception {
         return directoryServiceRepository.findAll();
     }
 
 
     @ApiOperation(value = "Username, Phone or Email is optional in JSon body. Returns 200 if Updated Successfully")
-    @PutMapping(value = "update/{email}", produces = "application/json")
+    @PutMapping(value = "update/{email}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response> updateEntry(@PathVariable String email, @Valid @RequestBody Entry entry) throws Exception {
 
         Entry oldEntry = directoryServiceRepository.findByEmail(email);
@@ -74,10 +74,10 @@ public class DirectoryServiceController {
     }
 
     @ApiOperation(value = "Returns 200 if User Deleted Successfully")
-    @DeleteMapping(value = "delete/{email}", produces = "application/json")
+    @DeleteMapping(value = "delete/{email}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response> deleteEntry(@PathVariable String email) throws Exception {
         Entry item = directoryServiceRepository.findByEmail(email);
-        if (!item.equals(null)) {
+        if (item != null) {
             directoryServiceRepository.delete(item);
             Response eR = new Response();
             eR.setCode(HttpStatus.OK.value());

@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -38,7 +39,8 @@ public class DirectoryServiceControllerTest {
 
     @Test
     public void ping() throws Exception{
-        mockMvc.perform(get("/api/ping")).andExpect(status().isOk()).andExpect(content().string("Application is working!"));
+        mockMvc.perform(get("/api/ping").with(httpBasic("smartbear","smartbear")))
+                .andExpect(status().isOk()).andExpect(content().string("Application is working!"));
     }
 
     @Test
@@ -54,6 +56,7 @@ public class DirectoryServiceControllerTest {
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/api/create")
+                .with(httpBasic("smartbear","smartbear"))
                 .accept(MediaType.APPLICATION_JSON).content(input)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -70,7 +73,9 @@ public class DirectoryServiceControllerTest {
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .get("/api/read")
-                .accept(MediaType.APPLICATION_JSON);
+                .with(httpBasic("smartbear","smartbear"))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
 
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
 
@@ -93,6 +98,7 @@ public class DirectoryServiceControllerTest {
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .put("/api/update/tonmoy.iitg@gmail.com")
+                .with(httpBasic("smartbear","smartbear"))
                 .accept(MediaType.APPLICATION_JSON).content(input)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -114,7 +120,9 @@ public class DirectoryServiceControllerTest {
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .delete("/api/delete/tonmoy.iitg@gmail.com")
-                .accept(MediaType.APPLICATION_JSON);
+                .with(httpBasic("smartbear","smartbear"))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 

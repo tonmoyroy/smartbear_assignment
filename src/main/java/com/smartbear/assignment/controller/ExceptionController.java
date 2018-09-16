@@ -11,13 +11,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
 @ControllerAdvice
-@EnableWebMvc
 public class ExceptionController {
 
     private Log logger = LogFactory.getLog(ExceptionController.class);
