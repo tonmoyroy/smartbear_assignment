@@ -35,8 +35,9 @@ password-smartbear
 
 4. Used JPA and PostGreSQL for persistant storage.
 5. Basic Exception Handeling
+6. Basic Unit Testing
 
 
-Enjoyed a lot working with the assignment. Could not manage enough time to do unit testing. If required, can try to do that as well.
+Enjoyed a lot working with the assignment.
 
 Hope you like it as well. Thank you!!
