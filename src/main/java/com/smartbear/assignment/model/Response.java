@@ -3,7 +3,7 @@ package com.smartbear.assignment.model;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExceptionResponse {
+public class Response {
     private int code;
     private String descrition;
 
